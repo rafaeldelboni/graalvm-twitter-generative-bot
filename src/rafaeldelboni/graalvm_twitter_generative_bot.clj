@@ -18,10 +18,17 @@
 
 (defn -main
   [& _args]
-  (try (twitter/tweet "Hello World from graalvm!!!"
-                      (envs->secrets)
-                      {:nonce (oauth/nonce)
-                       :timestamp (oauth/timestamp)})
-       (catch Exception e
-         (prn e)))
-  (println (image/generate!)))
+  (try
+    (let [generated-image (image/generate!)
+          uploaded-media (twitter/image-upload generated-image
+                                               (envs->secrets)
+                                               {:nonce (oauth/nonce)
+                                                :timestamp (oauth/timestamp)})
+          media-id (get-in uploaded-media [:body :media_id])]
+      (twitter/tweet "Clojure+GraalVM Simple Generated PNG"
+                     media-id
+                     (envs->secrets)
+                     {:nonce (oauth/nonce)
+                      :timestamp (oauth/timestamp)}))
+    (catch Exception e
+      (prn e))))

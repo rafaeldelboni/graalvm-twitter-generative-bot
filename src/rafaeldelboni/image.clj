@@ -3,6 +3,8 @@
            [java.awt Graphics2D]
            [java.awt.image BufferedImage]
            [java.io File]
+           [java.nio.file Files]
+           [java.util Base64]
            [javax.imageio ImageIO IIOImage ImageWriter]
            [javax.imageio.stream FileImageOutputStream]))
 
@@ -33,6 +35,12 @@
     (.setMetadata iio-image metadata)
     (.write writer nil iio-image nil)))
 
+(defn file->base64 [^File file]
+  (->> file
+       .toPath
+       Files/readAllBytes
+       (.encodeToString (Base64/getEncoder))))
+
 (defn generate!
   []
   (let [^File file-output (File/createTempFile "generated-image" ".png")
@@ -48,4 +56,4 @@
     (.flush output)
     (.close output)
     (.dispose imagewriter)
-    file-output))
+    (file->base64 file-output)))

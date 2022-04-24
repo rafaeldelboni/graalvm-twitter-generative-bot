@@ -2,6 +2,90 @@
   "resources":{
   "includes":[
     {
+      "pattern":"\\Qcheshire/core.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qcheshire/core__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcheshire/factory.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qcheshire/factory__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcheshire/generate.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qcheshire/generate__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcheshire/generate_seq.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qcheshire/generate_seq__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcheshire/parse.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qcheshire/parse__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/client.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/client__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/conn_mgr.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/conn_mgr__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/cookies.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/cookies__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/core.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/core__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/headers.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/headers__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/links.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/links__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/multipart.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/multipart__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/util.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_http/util__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_tuple.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclj_tuple__init.class\\E"
+    }, 
+    {
       "pattern":"\\Qclojure/core.clj\\E"
     }, 
     {
@@ -15,6 +99,9 @@
     }, 
     {
       "pattern":"\\Qclojure/core/server__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/core/specs/alpha.clj\\E"
     }, 
     {
       "pattern":"\\Qclojure/core__init.class\\E"
@@ -74,6 +161,60 @@
       "pattern":"\\Qclojure/main__init.class\\E"
     }, 
     {
+      "pattern":"\\Qclojure/pprint.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/cl_format.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/cl_format__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/column_writer.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/column_writer__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/dispatch.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/dispatch__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/pprint_base.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/pprint_base__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/pretty_writer.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/pretty_writer__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/print_table.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/print_table__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/utilities.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint/utilities__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/pprint__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/set.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/set__init.class\\E"
+    }, 
+    {
       "pattern":"\\Qclojure/spec/alpha.clj\\E"
     }, 
     {
@@ -84,6 +225,12 @@
     }, 
     {
       "pattern":"\\Qclojure/spec/gen/alpha__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/stacktrace.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qclojure/stacktrace__init.class\\E"
     }, 
     {
       "pattern":"\\Qclojure/string.clj\\E"
@@ -110,6 +257,54 @@
       "pattern":"\\Qdata_readers.clj\\E"
     }, 
     {
+      "pattern":"\\Qmozilla/public-suffix-list.txt\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/apache/http/client/version.properties\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/collections.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/collections__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/macros.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/macros__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/namespaces.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/namespaces__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/types.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/types__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/utils.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/utils__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/walk.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin/walk__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qpotemkin__init.class\\E"
+    }, 
+    {
       "pattern":"\\Qrafaeldelboni/graalvm_twitter_generative_bot.clj\\E"
     }, 
     {
@@ -120,6 +315,12 @@
     }, 
     {
       "pattern":"\\Qrafaeldelboni/hmac__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qrafaeldelboni/http_out.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qrafaeldelboni/http_out__init.class\\E"
     }, 
     {
       "pattern":"\\Qrafaeldelboni/image.clj\\E"
@@ -138,6 +339,36 @@
     }, 
     {
       "pattern":"\\Qrafaeldelboni/percent_encode__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qrafaeldelboni/twitter.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qrafaeldelboni/twitter__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qriddley/compiler.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qriddley/compiler__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qriddley/walk.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qriddley/walk__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qslingshot/slingshot.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qslingshot/slingshot__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qslingshot/support.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qslingshot/support__init.class\\E"
     }
   ]},
   "bundles":[{
