@@ -76,5 +76,3 @@
       (parameter-string->signature-base-string payload)
       (calc-signature secrets)
       (authorization-header secrets components)))
-
-

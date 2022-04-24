@@ -2,6 +2,8 @@
   (:require [rafaeldelboni.http-out :as http]
             [rafaeldelboni.oauth-v1 :as oauth]))
 
+(set! *warn-on-reflection* true)
+
 (defn tweet [tweet-msg image-id secrets components]
   (let [request {:method :post
                  :url "https://api.twitter.com/1.1/statuses/update.json"

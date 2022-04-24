@@ -5,7 +5,7 @@
 
 (def ^:private reserved-characters-regex #"[ !#$%&'()*+,/:;=?@\[\]]")
 
-(defn ^:private char->percent-encode 
+(defn ^:private char->percent-encode
   "Percent-encoding a reserved character involves converting the character to its
   corresponding byte value in ASCII and then representing that value as a pair of
   hexadecimal digits. The digits, preceded by a percent sign (%) which is used as
