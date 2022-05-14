@@ -1,11 +1,12 @@
 (ns rafaeldelboni.image
   (:import [com.sun.imageio.plugins.png PNGMetadata]
-           [java.awt Graphics2D]
+           [java.awt Color Graphics2D RenderingHints]
+           [java.awt.geom GeneralPath]
            [java.awt.image BufferedImage]
            [java.io File]
            [java.nio.file Files]
            [java.util Base64]
-           [javax.imageio ImageIO IIOImage ImageWriter]
+           [javax.imageio IIOImage ImageIO ImageWriter]
            [javax.imageio.stream FileImageOutputStream]))
 
 (set! *warn-on-reflection* true)
@@ -35,25 +36,54 @@
     (.setMetadata iio-image metadata)
     (.write writer nil iio-image nil)))
 
-(defn ^:private file->base64 [^File file]
+(defn ^:private file->base64 ^String [^File file]
   (->> file
        .toPath
        Files/readAllBytes
        (.encodeToString (Base64/getEncoder))))
 
-(defn generate!
-  []
-  (let [^File file-output (File/createTempFile "generated-image" ".png")
-        ^FileImageOutputStream output (FileImageOutputStream. file-output)
-        ^ImageWriter imagewriter (get-png-imagewriter)
-        ^BufferedImage bi (BufferedImage. 16 16 BufferedImage/TYPE_INT_ARGB)
-        ^Graphics2D g (.createGraphics bi)
+(defn write-image-file!
+  [^FileImageOutputStream output
+   ^BufferedImage buffered-image]
+  (let [^ImageWriter imagewriter (get-png-imagewriter)
         ^PNGMetadata metadata (make-generator-metadata "Hello Twitter!")]
-    (.drawLine g 0 0 10 10)
-    (.drawLine g 0 15 15 0)
     (.setOutput imagewriter output)
-    (write-image imagewriter bi metadata)
+    (write-image imagewriter buffered-image metadata)
     (.flush output)
     (.close output)
-    (.dispose imagewriter)
-    (file->base64 file-output)))
+    (.dispose imagewriter)))
+
+(def paths
+  [[0 85] [75 75] [100 10] [125 75] [200 85] [150 125] [160 190] [100 150] [40 190] [50 125] [0 85]])
+
+(defn points->general-path ^GeneralPath [points]
+  (let [general-path ^GeneralPath. (GeneralPath.)]
+    (.moveTo general-path (-> points ffirst double) (-> points first last double))
+    (doseq [point points
+            :let [x (-> point first double)
+                  y (-> point last double)]]
+      (.lineTo general-path x y))
+    (.closePath general-path)
+    general-path))
+
+(defn draw! ^Graphics2D [^BufferedImage buffered-image]
+  (doto ^Graphics2D (.createGraphics buffered-image)
+    (.setRenderingHint RenderingHints/KEY_RENDERING RenderingHints/VALUE_RENDER_QUALITY)
+    (.setPaint (Color. 0 92 117))
+    (.fill (points->general-path paths))
+    (.drawLine 0 0 150 150)
+    (.drawLine 0 150 150 0)
+    (.fillRect 0 0 10 10)
+    (.fillRect 140 140 10 10)))
+
+(defn generate! ^String
+  ([]
+   (generate! (File/createTempFile "generated-image" ".png")))
+  ([^File file-output]
+   (let [^FileImageOutputStream output (FileImageOutputStream. file-output)
+         ^BufferedImage buffered-image (BufferedImage. 350 350 BufferedImage/TYPE_INT_ARGB)]
+     (draw! buffered-image)
+     (write-image-file! output buffered-image)
+     (file->base64 file-output))))
+
+;(generate! (File. "test.png"))
