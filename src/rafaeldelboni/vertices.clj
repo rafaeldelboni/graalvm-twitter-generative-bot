@@ -1,29 +1,8 @@
 (ns rafaeldelboni.vertices
   "Based on https://stackoverflow.com/a/25276331"
-  (:import [java.util Random]))
+  (:require [rafaeldelboni.random :as rand]))
 
 (set! *warn-on-reflection* true)
-
-(defn rand-seeded
-  "Given an seed return a random number between min and max args"
-  ^Double
-  [^Long seed ^Double min ^Double max]
-  (if (= min max)
-    min
-    (-> (Random. seed)
-        (.doubles min max)
-        .findFirst
-        .getAsDouble)))
-
-(defn rand-gauss-seeded
-  "Given an seed returns a random floating point value based on the given mean
-  and standard deviation for the Gaussian distribution."
-  ^Double
-  [^Long seed ^Double mu ^Double sigma]
-  (-> (Random. seed)
-      .nextGaussian
-      (* sigma)
-      (+ mu)))
 
 (defn clip
   "Given an interval, values outside the interval are clipped to the interval edges."
@@ -37,9 +16,10 @@
   "Generates the division of a circumference in random angles."
   ^clojure.lang.PersistentVector
   [^Long seed ^Integer steps ^Double irregularity]
-  (let [lower (-> Math/PI (* 2) (/ steps) (- irregularity))
-        upper (-> Math/PI (* 2) (/ steps) (+ irregularity))
-        angles (map #(rand-seeded (+ seed %) lower upper) (range steps))
+  (let [tau (* Math/PI 2)
+        lower (-> tau (/ steps) (- irregularity))
+        upper (-> tau (/ steps) (+ irregularity))
+        angles (map #(rand/double-seeded (* seed %) lower upper) (range steps))
         cumulative (-> (reduce + angles) (/ (* 2 Math/PI)))]
     (map #(/ % cumulative) angles)))
 
@@ -60,11 +40,11 @@
         irregularity (* irregularity-in (/ tau num-vertices))
         spikiness (* spikiness-in avg-radius)
         angle-steps (rand-angle-steps seed num-vertices irregularity)
-        angle (rand-seeded seed 0.0 tau)]
+        angle (rand/double-seeded seed 0.0 tau)]
     (->> angle-steps
          (reduce (fn [{:keys [sum-angle points]} cur]
                    (let [radius (-> (+ seed (count points))
-                                    (rand-gauss-seeded avg-radius spikiness)
+                                    (rand/gauss-seeded avg-radius spikiness)
                                     (clip 0.0 (* 2 avg-radius)))
                          point [(-> (first center)
                                     (+ radius)
@@ -77,3 +57,10 @@
                  {:sum-angle angle
                   :points []})
          :points)))
+
+(defn generate! [^Long seed]
+  (let [avg-radius (rand/double-seeded seed 50.0 100.0)
+        irregularity (rand/double-seeded seed 0.0 1.0)
+        spikiness (rand/double-seeded seed 0.0 1.0)
+        num-vertices (int (rand/double-seeded seed 3.0 100.0))]
+    (generate-polygon seed [0 0] avg-radius irregularity spikiness num-vertices)))

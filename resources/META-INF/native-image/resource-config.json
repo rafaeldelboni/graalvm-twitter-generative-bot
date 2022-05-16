@@ -341,10 +341,22 @@
       "pattern":"\\Qrafaeldelboni/percent_encode__init.class\\E"
     }, 
     {
+      "pattern":"\\Qrafaeldelboni/random.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qrafaeldelboni/random__init.class\\E"
+    }, 
+    {
       "pattern":"\\Qrafaeldelboni/twitter.clj\\E"
     }, 
     {
       "pattern":"\\Qrafaeldelboni/twitter__init.class\\E"
+    }, 
+    {
+      "pattern":"\\Qrafaeldelboni/vertices.clj\\E"
+    }, 
+    {
+      "pattern":"\\Qrafaeldelboni/vertices__init.class\\E"
     }, 
     {
       "pattern":"\\Qriddley/compiler.clj\\E"

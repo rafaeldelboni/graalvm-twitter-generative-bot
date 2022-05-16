@@ -19,13 +19,14 @@
 (defn -main
   [& _args]
   (try
-    (let [generated-image (image/generate!)
+    (let [seed (long (rand 9999999999999999))
+          generated-image (image/generate! seed)
           uploaded-media (twitter/image-upload generated-image
                                                (envs->secrets)
                                                {:nonce (oauth/nonce)
                                                 :timestamp (oauth/timestamp)})
           media-id (get-in uploaded-media [:body :media_id])]
-      (twitter/tweet "Clojure+GraalVM Simple Generated PNG"
+      (twitter/tweet (str "j" seed)
                      media-id
                      (envs->secrets)
                      {:nonce (oauth/nonce)

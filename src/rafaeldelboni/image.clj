@@ -1,5 +1,6 @@
 (ns rafaeldelboni.image
-  (:require [rafaeldelboni.vertices :as vertices])
+  (:require [rafaeldelboni.vertices :as vertices]
+            [rafaeldelboni.random :as rand])
   (:import [com.sun.imageio.plugins.png PNGMetadata]
            [java.awt Color Graphics2D RenderingHints]
            [java.awt.geom GeneralPath]
@@ -64,21 +65,24 @@
     (.closePath general-path)
     general-path))
 
-(defn draw! ^Graphics2D [^BufferedImage buffered-image]
-  (doto ^Graphics2D (.createGraphics buffered-image)
-    (.setRenderingHint RenderingHints/KEY_RENDERING RenderingHints/VALUE_RENDER_QUALITY)
-    (.setPaint (Color. 0 92 117))
-    (.translate 250 250)
-    (.fill (points->general-path (vertices/generate-polygon 1 [0 0] 250.0 0.0 0.0 6)))))
+(defn draw! ^Graphics2D [^Long seed ^BufferedImage buffered-image]
+  (let [r (int (rand/double-seeded (* seed 1) 0.0 255.0))
+        g (int (rand/double-seeded (* seed 2) 0.0 255.0))
+        b (int (rand/double-seeded (* seed 3) 0.0 255.0))]
+    (doto ^Graphics2D (.createGraphics buffered-image)
+      (.setRenderingHint RenderingHints/KEY_RENDERING RenderingHints/VALUE_RENDER_QUALITY)
+      (.setPaint (Color. r g b))
+      (.translate 250 250)
+      (.fill (points->general-path (vertices/generate! seed))))))
 
 (defn generate! ^String
-  ([]
-   (generate! (File/createTempFile "generated-image" ".png")))
-  ([^File file-output]
+  ([^Long seed]
+   (generate! seed (File/createTempFile "generated-image" ".png")))
+  ([^Long seed ^File file-output]
    (let [^FileImageOutputStream output (FileImageOutputStream. file-output)
          ^BufferedImage buffered-image (BufferedImage. 500 500 BufferedImage/TYPE_INT_ARGB)]
-     (draw! buffered-image)
+     (draw! seed buffered-image)
      (write-image-file! output buffered-image)
      (file->base64 file-output))))
 
-;(generate! (File. "test.png"))
+;(generate! (long (rand 9999999999999999)) (File. "test.png"))
