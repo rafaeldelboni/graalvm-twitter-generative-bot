@@ -1,4 +1,5 @@
 (ns rafaeldelboni.image
+  (:require [rafaeldelboni.vertices :as vertices])
   (:import [com.sun.imageio.plugins.png PNGMetadata]
            [java.awt Color Graphics2D RenderingHints]
            [java.awt.geom GeneralPath]
@@ -53,9 +54,6 @@
     (.close output)
     (.dispose imagewriter)))
 
-(def paths
-  [[0 85] [75 75] [100 10] [125 75] [200 85] [150 125] [160 190] [100 150] [40 190] [50 125] [0 85]])
-
 (defn points->general-path ^GeneralPath [points]
   (let [general-path ^GeneralPath. (GeneralPath.)]
     (.moveTo general-path (-> points ffirst double) (-> points first last double))
@@ -70,18 +68,15 @@
   (doto ^Graphics2D (.createGraphics buffered-image)
     (.setRenderingHint RenderingHints/KEY_RENDERING RenderingHints/VALUE_RENDER_QUALITY)
     (.setPaint (Color. 0 92 117))
-    (.fill (points->general-path paths))
-    (.drawLine 0 0 150 150)
-    (.drawLine 0 150 150 0)
-    (.fillRect 0 0 10 10)
-    (.fillRect 140 140 10 10)))
+    (.translate 250 250)
+    (.fill (points->general-path (vertices/generate-polygon 1 [0 0] 250.0 0.0 0.0 6)))))
 
 (defn generate! ^String
   ([]
    (generate! (File/createTempFile "generated-image" ".png")))
   ([^File file-output]
    (let [^FileImageOutputStream output (FileImageOutputStream. file-output)
-         ^BufferedImage buffered-image (BufferedImage. 350 350 BufferedImage/TYPE_INT_ARGB)]
+         ^BufferedImage buffered-image (BufferedImage. 500 500 BufferedImage/TYPE_INT_ARGB)]
      (draw! buffered-image)
      (write-image-file! output buffered-image)
      (file->base64 file-output))))
